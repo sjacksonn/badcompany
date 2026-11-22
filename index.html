@@ -41,6 +41,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .tile img{-webkit-user-drag:none;pointer-events:none}
 .soon{border:1.5px dashed rgba(255,255,255,.75)}
 .game{background:#d6d6d6}
+.hh{background:#2a0606}
+.hh img.logo{top:5%}
 .game img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
 .game img.logo{position:absolute;left:8%;width:84%;top:7%;filter:drop-shadow(0 6px 10px rgba(0,0,0,.45));transition:transform .4s}
 .game .play{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);background:#fff;color:#000;border-radius:999px;padding:.5em 1.1em .45em;font-size:15px;letter-spacing:.02em;white-space:nowrap}
@@ -82,7 +84,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <img class="logo" src="img/hdr-logo.webp" alt="Hot Dog Run">
         <span class="play">PLAY NOW</span>
       </a>
-      <div class="tile soon">COMING<br>SOON</div>
+      <a class="tile game hh" href="https://hellhound.badcompany.fyi" aria-label="Play Hellhound">
+        <img class="bg" src="img/hh-bg.webp" alt="">
+        <img class="logo" src="img/hh-logo.webp" alt="Hellhound">
+        <span class="play">PLAY NOW</span>
+      </a>
       <div class="tile soon">COMING<br>SOON</div>
       <div class="tile soon">COMING<br>SOON</div>
     </div>
