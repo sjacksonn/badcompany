@@ -120,12 +120,24 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   panel.addEventListener('touchend',function(e){if(y0!==null&&e.changedTouches[0].clientY-y0>60)setAbout(false);y0=null});
 
   // carousel: dots, keys, wheel, mouse drag
-  var tiles=document.getElementById('tiles'),list=tiles.querySelectorAll('.tile'),dots=document.querySelectorAll('#dots b');
+  var tiles=document.getElementById('tiles'),list,dots,dotBox=document.getElementById('dots');
+  // on wide screens, add extra coming-soon tiles so the row runs off the right edge
+  function fill(){
+    tiles.querySelectorAll('.extra').forEach(function(t){t.remove()});
+    if(innerWidth>760){
+      var tw=tiles.querySelector('.tile').offsetWidth+16,n=tiles.querySelectorAll('.tile').length;
+      while(n*tw+16<innerWidth+tw*.35&&n<14){var t=document.createElement('div');t.className='tile soon extra';t.innerHTML='COMING<br>SOON';tiles.appendChild(t);n++}
+    }
+    list=tiles.querySelectorAll('.tile');
+    dotBox.innerHTML='';for(var i=0;i<list.length;i++)dotBox.appendChild(document.createElement('b'));
+    dots=dotBox.querySelectorAll('b');dots[0].classList.add('on');
+    dots.forEach(function(d,k){d.onclick=function(){go(k)}});
+  }
   function step(){return list[0].offsetWidth+16}
   function cur(){return Math.round(tiles.scrollLeft/step())}
   function go(i){i=Math.max(0,Math.min(list.length-1,i));tiles.scrollTo({left:i*step(),behavior:'smooth'})}
   tiles.addEventListener('scroll',function(){var i=cur();dots.forEach(function(d,k){d.classList.toggle('on',k===i)})},{passive:true});
-  dots.forEach(function(d,k){d.onclick=function(){go(k)}});
+  fill();addEventListener('resize',fill);
   addEventListener('keydown',function(e){
     if(e.key==='Escape')setAbout(false);
     if(e.key==='ArrowRight')go(cur()+1);
