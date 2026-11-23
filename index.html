@@ -51,6 +51,28 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .game .trx:before,.game .trx:after{content:"";position:absolute;left:9px;right:9px;top:50%;height:2px;margin-top:-1px;background:#fff;transform:rotate(45deg)}.game .trx:after{transform:rotate(-45deg)}
 .game.playing .trv,.game.playing .trx{opacity:1;pointer-events:auto}
 .game.playing .trl{display:none}
+/* credits: the i button turns the tile over */
+.game{transition:transform .18s ease-in}
+.game.turning{transform:perspective(900px) rotateY(90deg)}
+.game .inf{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.55);border:1.5px solid #fff;z-index:8;cursor:pointer;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.game .inf:before{content:"i";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font:700 17px/1 Georgia,"Times New Roman",serif;font-style:italic}
+.game .inf:hover{background:#fff}.game .inf:hover:before{color:#000}
+.game.flipped .inf:before{content:"";}
+.game.flipped .inf:after,.game.flipped .inf:before{content:"";position:absolute;left:9px;right:9px;top:50%;height:2px;margin-top:-1px;background:#fff;transform:rotate(45deg);inset:auto 9px auto 9px}
+.game.flipped .inf:after{transform:rotate(-45deg)}
+.game.flipped .inf:hover:before,.game.flipped .inf:hover:after{background:#000}
+.game.playing .inf{display:none}
+.game .back{position:absolute;inset:0;z-index:7;background:#000;padding:10px;display:none;cursor:pointer}
+.game.flipped .back{display:block}
+.game.flipped{background:#000}.game.flipped img.bg,.game.flipped img.logo,.game.flipped .btns{visibility:hidden}
+.game .back .cr{height:100%;border:1.5px solid #fff;border-radius:22px;display:flex;flex-direction:column;justify-content:flex-start;padding:30px 22px 26px;text-align:left;color:#fff}
+.game .back h3{font-size:min(7vw,28px);line-height:.95;letter-spacing:-.01em;margin:0 0 22px}
+.game .back dl{margin:0;display:grid;gap:4px}
+.game .back dt{font-size:12px;letter-spacing:.04em;text-transform:uppercase;opacity:.55;margin-top:12px}
+.game .back dt:first-child{margin-top:0}
+.game .back dd{margin:0;font-size:min(4.6vw,19px);line-height:1.1}
+.game .back a{color:#fff;text-decoration:underline;text-underline-offset:.12em;text-decoration-thickness:.06em}
+@media (prefers-reduced-motion:reduce){.game{transition:none}}
 
 .hh{background:#2a0606}
 .hh img.logo{top:5%}
@@ -101,6 +123,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <video class="trv" src="vid/hdr-trailer.mp4?v=2" poster="vid/hdr-trailer.jpg?v=2" muted playsinline preload="none" aria-label="Hot Dog Run trailer"></video>
         <button class="trx" type="button" aria-label="Close trailer"></button>
         <div class="btns"><a class="play" href="https://hotdogrun.badcompany.fyi">PLAY NOW</a><button class="trl" type="button">TRAILER</button></div>
+        <button class="inf" type="button" aria-label="Credits for Hot Dog Run" aria-expanded="false"></button>
+        <div class="back" aria-hidden="true"><div class="cr"><h3>HOT DOG RUN</h3><dl><dt>Dev</dt><dd>Sam</dd><dt>Platforms</dt><dd>Claude (Build) &amp; ChatGPT (Artwork)</dd><dt>Inspired by</dt><dd>NYC Hot Dog Sellers</dd></dl></div></div>
       </div>
       <div class="tile game hh">
         <a class="cover" href="https://hellhound.badcompany.fyi" aria-label="Play Hellhound"></a>
@@ -109,6 +133,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <video class="trv" src="vid/hh-trailer.mp4?v=1" poster="vid/hh-trailer.jpg?v=1" muted playsinline preload="none" aria-label="Hellhound trailer"></video>
         <button class="trx" type="button" aria-label="Close trailer"></button>
         <div class="btns"><a class="play" href="https://hellhound.badcompany.fyi">PLAY NOW</a><button class="trl" type="button">TRAILER</button></div>
+        <button class="inf" type="button" aria-label="Credits for Hellhound" aria-expanded="false"></button>
+        <div class="back" aria-hidden="true"><div class="cr"><h3>HELLHOUND</h3><dl><dt>Dev</dt><dd>Sam</dd><dt>Platforms</dt><dd>Claude (Build) &amp; ChatGPT (Artwork)</dd><dt>Original Artwork</dt><dd><a href="https://morning.fyi" target="_blank" rel="noopener">MØRNING.FYI</a></dd></dl></div></div>
       </div>
       <div class="tile game gh">
         <a class="cover" href="https://grouphug.badcompany.fyi" aria-label="Play Group Hug"></a>
@@ -116,6 +142,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <video class="trv" src="vid/gh-trailer.mp4?v=1" poster="vid/gh-trailer.jpg?v=1" muted playsinline preload="none" aria-label="Group Hug trailer"></video>
         <button class="trx" type="button" aria-label="Close trailer"></button>
         <div class="btns"><a class="play" href="https://grouphug.badcompany.fyi">PLAY NOW</a><button class="trl" type="button">TRAILER</button></div>
+        <button class="inf" type="button" aria-label="Credits for Group Hug" aria-expanded="false"></button>
+        <div class="back" aria-hidden="true"><div class="cr"><h3>GROUP HUG</h3><dl><dt>Dev</dt><dd>Sam</dd><dt>Platforms</dt><dd>Claude (Build) &amp; ChatGPT (Artwork)</dd></dl></div></div>
       </div>
       <div class="tile soon">COMING<br>SOON</div>
     </div>
@@ -123,7 +151,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
     <div class="panel" id="panel" role="region" aria-label="About Bad Company">
       <div class="txt">
-        <p>BAD COMPANY is an experimental vibe coding space ft. games, experiments, experiences &amp; tools. Run by Sam, co-founder of Ø Group/MØRNING/EVENING.</p>
+        <p>BAD COMPANY is an experimental vibe coding space ft. games, experiments, experiences &amp; tools. Run by Sam, co-founder of <a class="mail" href="https://instagram.com/morning.fyi" target="_blank" rel="noopener">Ø&nbsp;Group</a>/<a class="mail" href="https://morning.fyi" target="_blank" rel="noopener">MØRNING</a>/<a class="mail" href="https://evening.fyi" target="_blank" rel="noopener">EVENING</a>.</p>
         <p><a class="mail" href="mailto:contact@badcompany.fyi">contact@badcompany.fyi</a></p>
         <p class="copy">© 2026 BAD COMPANY. ALL RIGHTS RESERVED.</p>
       </div>
@@ -164,6 +192,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     x.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();stop()});
     v.addEventListener('ended',stop);
     v.addEventListener('click',function(){location.href=t.querySelector('.cover').href});
+  });
+  // credits: turn the tile over and back
+  document.querySelectorAll('.game').forEach(function(t){
+    var b=t.querySelector('.inf'),back=t.querySelector('.back');if(!b)return;
+    function flip(e){if(e){if(e.target.closest&&e.target.closest('.back a'))return;e.preventDefault();e.stopPropagation()}
+      var v=t.querySelector('.trv');if(v){t.classList.remove('playing');v.pause()}
+      t.classList.add('turning');
+      setTimeout(function(){var on=t.classList.toggle('flipped');b.setAttribute('aria-expanded',on);back.setAttribute('aria-hidden',!on);t.classList.remove('turning')},180)}
+    b.addEventListener('click',flip);back.addEventListener('click',flip);
   });
   // carousel: dots, keys, wheel, mouse drag
   var tiles=document.getElementById('tiles'),list,dots,dotBox=document.getElementById('dots');
