@@ -114,7 +114,7 @@ button{font:inherit;color:inherit;cursor:pointer}
  #B .card .lg{inset:auto;left:8%;width:84%;top:6%;height:auto}
  #B .card video{opacity:0;transition:opacity .4s}#B .card video.ready{opacity:1}
  #B .card .cue{position:absolute;left:0;right:0;bottom:6%;text-align:center;font-size:13px;font-weight:800}
- #B .card .cue span{background:#fff;color:#000;border-radius:99px;padding:8px 16px}
+ #B .card .cue span{background:#000;color:#fff;border:1.5px solid #fff;border-radius:99px;padding:8px 16px}
 }
 
 
@@ -170,7 +170,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 const G=[
  {id:'hdr',name:'HOT DOG RUN',lines:'HOT DOG<br>RUN',kind:'ENDLESS RUNNER',pitch:'An endless run through New York at night, in a hot dog cart.',url:'https://hotdogrun.badcompany.fyi',bg:'img/hdr-bg.webp',logo:'img/hdr-logo.webp',vid:'vid/hdr-trailer.mp4',poster:'vid/hdr-trailer.jpg'},
  {id:'hh',name:'HELLHOUND',lines:'HELL<br>HOUND',kind:'SIDE-SCROLLER',pitch:'Three heads. One way out. A 16-bit run through The Inferno.',url:'https://hellhound.badcompany.fyi',bg:'img/hh-bg.webp',logo:'img/hh-logo.webp',vid:'vid/hh-trailer.mp4',poster:'vid/hh-trailer.jpg'},
- {id:'gh',name:'GROUP HUG',lines:'GROUP<br>HUG',kind:'HUGGING, MOSTLY',pitch:'One hug becomes a hundred. Meet a Legend every 100 hugs.',url:'https://grouphug.badcompany.fyi',bg:'img/gh-cover.webp',logo:'',vid:'vid/gh-trailer.mp4',poster:'vid/gh-trailer.jpg'},
+ {id:'gh',name:'GROUP HUG',lines:'GROUP<br>HUG',kind:'HUGGING, MOSTLY',pitch:'One hug becomes a hundred. Meet a Legend every 100 hugs.',url:'https://grouphug.badcompany.fyi',bg:'img/gh-cover.webp',logo:'',cardLogo:'img/gh-logo.webp?v=1',vid:'vid/gh-trailer.mp4',poster:'vid/gh-trailer.jpg'},
  {id:'soon',name:'COMING SOON',lines:'COMING<br>SOON',kind:'IN THE LAB',pitch:'Something new is cooking in the lab.',soon:true}
 ];
 const $=id=>document.getElementById(id);
@@ -193,7 +193,7 @@ const rows=[...document.querySelectorAll('#B .row')];let bi=-1;
 function setB(i){bi=i;rows.forEach((r,k)=>r.classList.toggle('on',k===i));$('list').classList.toggle('hovering',i>=0);
  if(desk()){const g=G[i];const c=$('card'),v=$('cardV');
   if(i<0||g.soon){c.classList.remove('on');v.pause();return}
-  $('cardBg').src=g.bg;$('cardLg').style.display=g.logo?'':'none';if(g.logo)$('cardLg').src=g.logo;
+  $('cardBg').src=g.bg;const lg=g.cardLogo||g.logo;$('cardLg').style.display=lg?'':'none';if(lg)$('cardLg').src=lg;
   if(v.dataset.cur!==g.vid){v.classList.remove('ready');v.dataset.cur=g.vid;v.src=g.vid;v.oncanplay=()=>setTimeout(()=>v.classList.add('ready'),500)}play(v);c.classList.add('on')}
  else{rows.forEach((r,k)=>{const v=r.querySelector('video');if(!v)return;if(k===i){if(!v.src)v.src=v.dataset.src;play(v)}else v.pause()})}}
 rows.forEach((r,k)=>{
