@@ -41,6 +41,17 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .tile img{-webkit-user-drag:none;pointer-events:none}
 .soon{border:1.5px dashed rgba(255,255,255,.75)}
 .game{background:#d6d6d6}
+.game .cover{position:absolute;inset:0;z-index:1}
+.game .btns{position:absolute;left:0;right:0;bottom:7%;display:flex;justify-content:center;gap:8px;z-index:4}
+.game .btns .play{position:static;transform:none;text-decoration:none}
+.game .trl{background:rgba(0,0,0,.55);color:#fff;border:1.5px solid #fff;border-radius:999px;padding:.5em 1.1em .45em;font-size:15px;letter-spacing:.02em;white-space:nowrap;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.game .trl:hover{background:#fff;color:#000}
+.game .trv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none;z-index:3;transition:opacity .3s;background:#000}
+.game .trx{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.55);border:1.5px solid #fff;z-index:5;opacity:0;pointer-events:none;transition:opacity .3s}
+.game .trx:before,.game .trx:after{content:"";position:absolute;left:9px;right:9px;top:50%;height:2px;margin-top:-1px;background:#fff;transform:rotate(45deg)}.game .trx:after{transform:rotate(-45deg)}
+.game.playing .trv,.game.playing .trx{opacity:1;pointer-events:auto}
+.game.playing .trl{display:none}
+
 .hh{background:#2a0606}
 .hh img.logo{top:5%}
 .game img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
@@ -79,11 +90,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
   <section class="stage">
     <div class="tiles" id="tiles">
-      <a class="tile game" href="https://hotdogrun.badcompany.fyi" aria-label="Play Hot Dog Run">
+      <div class="tile game hdr">
+        <a class="cover" href="https://hotdogrun.badcompany.fyi" aria-label="Play Hot Dog Run"></a>
         <img class="bg" src="img/hdr-bg.webp" alt="">
         <img class="logo" src="img/hdr-logo.webp" alt="Hot Dog Run">
-        <span class="play">PLAY NOW</span>
-      </a>
+        <video class="trv" src="vid/hdr-trailer.mp4" poster="vid/hdr-trailer.jpg" muted playsinline preload="none" aria-label="Hot Dog Run trailer"></video>
+        <button class="trx" type="button" aria-label="Close trailer"></button>
+        <div class="btns"><a class="play" href="https://hotdogrun.badcompany.fyi">PLAY NOW</a><button class="trl" type="button">TRAILER</button></div>
+      </div>
       <a class="tile game hh" href="https://hellhound.badcompany.fyi" aria-label="Play Hellhound">
         <img class="bg" src="img/hh-bg.webp" alt="">
         <img class="logo" src="img/hh-logo.webp" alt="Hellhound">
@@ -126,6 +140,18 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   panel.addEventListener('touchstart',function(e){y0=e.touches[0].clientY},{passive:true});
   panel.addEventListener('touchend',function(e){if(y0!==null&&e.changedTouches[0].clientY-y0>60)setAbout(false);y0=null});
 
+
+  // trailer plays inside its tile
+  document.querySelectorAll('.game').forEach(function(t){
+    var v=t.querySelector('.trv'),b=t.querySelector('.trl'),x=t.querySelector('.trx');if(!v)return;
+    function stop(){t.classList.remove('playing');v.pause()}
+    b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();
+      document.querySelectorAll('.game.playing').forEach(function(o){if(o!==t){o.classList.remove('playing');o.querySelector('.trv').pause()}});
+      t.classList.add('playing');v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});});
+    x.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();stop()});
+    v.addEventListener('ended',stop);
+    v.addEventListener('click',function(){location.href=t.querySelector('.cover').href});
+  });
   // carousel: dots, keys, wheel, mouse drag
   var tiles=document.getElementById('tiles'),list,dots,dotBox=document.getElementById('dots');
   // on wide screens, add extra coming-soon tiles so the row runs off the right edge
