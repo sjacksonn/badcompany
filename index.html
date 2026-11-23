@@ -171,13 +171,15 @@ const G=[
  {id:'hdr',name:'HOT DOG RUN',lines:'HOT DOG<br>RUN',kind:'ENDLESS RUNNER',pitch:'An endless run through New York at night, in a hot dog cart.',url:'https://hotdogrun.badcompany.fyi',bg:'img/hdr-bg.webp',logo:'img/hdr-logo.webp',vid:'vid/hdr-trailer.mp4',poster:'vid/hdr-trailer.jpg'},
  {id:'hh',name:'HELLHOUND',lines:'HELL<br>HOUND',kind:'SIDE-SCROLLER',pitch:'Three heads. One way out. A 16-bit run through The Inferno.',url:'https://hellhound.badcompany.fyi',bg:'img/hh-bg.webp',logo:'img/hh-logo.webp',vid:'vid/hh-trailer.mp4',poster:'vid/hh-trailer.jpg'},
  {id:'gh',name:'GROUP HUG',lines:'GROUP<br>HUG',kind:'HUGGING, MOSTLY',pitch:'One hug becomes a hundred. Meet a Legend every 100 hugs.',url:'https://grouphug.badcompany.fyi',bg:'img/gh-bg.webp?v=2',logo:'img/gh-logo.webp?v=1',vid:'vid/gh-trailer.mp4',poster:'vid/gh-trailer.jpg'},
+ {id:'bf',name:'BUTTER FLYS',lines:'BUTTER<br>FLYS',kind:'ENDLESS CLIMBER',pitch:'Born to fly. Destined to melt. Climb an endless popcorn machine before you turn into a puddle.',url:'https://butterflys.badcompany.fyi',bg:'img/bf-bg.webp?v=1',logo:'img/bf-logo.webp?v=1'},
  {id:'soon',name:'COMING SOON',lines:'COMING<br>SOON',kind:'IN THE LAB',pitch:'Something new is cooking in the lab.',soon:true}
 ];
 const $=id=>document.getElementById(id);
 const pad=n=>String(n).padStart(2,'0');
 const CR={hdr:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)'],['Inspired by','NYC Hot Dog Sellers']],
  hh:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)'],['Original Artwork','<a href="https://morning.fyi" target="_blank" rel="noopener">MØRNING.FYI</a>']],
- gh:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)']]};
+ gh:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)']],
+ bf:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)']]};
 const dl=g=>'<dl>'+CR[g.id].map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')+'</dl>';
 const IB=(i)=>`<button class="ib" type="button" data-cr="${i}" aria-label="Credits">i</button>`;
 const play=v=>{const p=v.play();if(p&&p.catch)p.catch(()=>{})};
@@ -186,7 +188,7 @@ const play=v=>{const p=v.play();if(p&&p.catch)p.catch(()=>{})};
 const desk=()=>matchMedia('(min-width:900px) and (hover:hover)').matches;
 $('list').innerHTML=G.map((g,i)=>`<div class="row${g.soon?' ghost':''}" tabindex="0" role="button" data-i="${i}" aria-label="${g.name}">
  <div class="line"><span class="n">${pad(i+1)}</span><span class="name">${g.name}</span><span class="meta">${g.kind}</span>${g.soon?'':IB(i)}</div>
- <div class="open"><div>${g.soon?'<p style="margin:10px 0 14px;font-weight:500;opacity:.7">'+g.pitch+'</p>':`<div class="clipm"><img src="${g.bg}" alt=""><video muted playsinline loop preload="none" data-src="${g.vid}"></video></div>
+ <div class="open"><div>${g.soon?'<p style="margin:10px 0 14px;font-weight:500;opacity:.7">'+g.pitch+'</p>':`<div class="clipm"><img src="${g.bg}" alt="">${g.vid?`<video muted playsinline loop preload="none" data-src="${g.vid}"></video>`:''}</div>
   <div class="obtns"><a class="pill solid" href="${g.url}" target="_blank" rel="noopener">PLAY NOW</a>${IB(i)}</div>`}</div></div>
 </div>`).join('');
 const rows=[...document.querySelectorAll('#B .row')];let bi=-1;
@@ -194,6 +196,7 @@ function setB(i){bi=i;rows.forEach((r,k)=>r.classList.toggle('on',k===i));$('lis
  if(desk()){const g=G[i];const c=$('card'),v=$('cardV');
   if(i<0||g.soon){c.classList.remove('on');v.pause();return}
   $('cardBg').src=g.bg;const lg=g.cardLogo||g.logo;$('cardLg').style.display=lg?'':'none';if(lg)$('cardLg').src=lg;
+  if(!g.vid){v.pause();v.removeAttribute('src');v.dataset.cur='';v.classList.remove('ready');c.classList.add('on');return}
   if(v.dataset.cur!==g.vid){v.classList.remove('ready');v.dataset.cur=g.vid;v.src=g.vid;v.oncanplay=()=>setTimeout(()=>v.classList.add('ready'),500)}play(v);c.classList.add('on')}
  else{rows.forEach((r,k)=>{const v=r.querySelector('video');if(!v)return;if(k===i){if(!v.src)v.src=v.dataset.src;play(v)}else v.pause()})}}
 rows.forEach((r,k)=>{
@@ -211,13 +214,14 @@ addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY});
 $('bhint').textContent=desk()?'HOVER A NAME TO PEEK · CLICK TO PLAY':'TAP A NAME TO OPEN IT';
 
 /* ---------- B · tiles view ---------- */
-$('btiles').innerHTML=G.concat([G[3],G[3]]).map((g,i)=>g.soon?`<div class="tile soon">COMING<br>SOON</div>`:`<div class="tile" data-i="${i}"><img class="bg" src="${g.bg}" alt="${g.name}">${g.logo?`<img class="lg" src="${g.logo}" alt="">`:''}<video muted playsinline preload="none" data-src="${g.vid}"></video>
- <button class="tx" type="button" aria-label="Close trailer">✕</button>${IB(i)}<div class="back" aria-hidden="true"><button class="bx" type="button" aria-label="Close credits">✕</button><h3>${g.name}</h3>${dl(g)}</div><div class="tb"><a class="pill solid" href="${g.url}" target="_blank" rel="noopener">PLAY NOW</a><button class="pill trl" type="button">TRAILER</button></div></div>`).join('');
+const SOON=G.find(g=>g.soon);
+$('btiles').innerHTML=G.concat([SOON,SOON]).map((g,i)=>g.soon?`<div class="tile soon">COMING<br>SOON</div>`:`<div class="tile" data-i="${i}"><img class="bg" src="${g.bg}" alt="${g.name}">${g.logo?`<img class="lg" src="${g.logo}" alt="">`:''}${g.vid?`<video muted playsinline preload="none" data-src="${g.vid}"></video>`:''}
+ <button class="tx" type="button" aria-label="Close trailer">✕</button>${IB(i)}<div class="back" aria-hidden="true"><button class="bx" type="button" aria-label="Close credits">✕</button><h3>${g.name}</h3>${dl(g)}</div><div class="tb"><a class="pill solid" href="${g.url}" target="_blank" rel="noopener">PLAY NOW</a>${g.vid?'<button class="pill trl" type="button">TRAILER</button>':''}</div></div>`).join('');
 const tiles=[...document.querySelectorAll('#B .tile')];
 function sizeTiles(){const box=$('btiles');const h=box.clientHeight;if(!h)return;const w=Math.min(innerWidth*.8,h*345/465,430);tiles.forEach(t=>{t.style.width=w+'px'})}
-tiles.forEach(t=>{const v=t.querySelector('video');if(!v)return;const stop=()=>{t.classList.remove('playing');v.pause()};
- t.querySelector('.trl').onclick=()=>{tiles.forEach(o=>{if(o!==t){o.classList.remove('playing');const ov=o.querySelector('video');ov&&ov.pause()}});if(!v.src)v.src=v.dataset.src;t.classList.add('playing');v.currentTime=0;play(v)};
- t.querySelector('.tx').onclick=stop;v.onended=stop;
+tiles.forEach(t=>{if(!t.querySelector('.ib'))return;const v=t.querySelector('video');const stop=()=>{t.classList.remove('playing');v&&v.pause()};
+ if(v)t.querySelector('.trl').onclick=()=>{tiles.forEach(o=>{if(o!==t){o.classList.remove('playing');const ov=o.querySelector('video');ov&&ov.pause()}});if(!v.src)v.src=v.dataset.src;t.classList.add('playing');v.currentTime=0;play(v)};
+ t.querySelector('.tx').onclick=stop;if(v)v.onended=stop;
  const turn=on=>{t.classList.add('turning');setTimeout(()=>{t.classList.toggle('cr',on);t.querySelector('.back').setAttribute('aria-hidden',!on);t.classList.remove('turning')},180)};
  t.querySelector('.ib').onclick=()=>{stop();const r=t.getBoundingClientRect(),b=$('btiles');if(r.left<0||r.right>innerWidth){t.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});setTimeout(()=>turn(true),380)}else turn(true)};
  t.querySelector('.back').addEventListener('click',e=>{if(!e.target.closest('a'))turn(false)})});
