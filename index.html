@@ -36,12 +36,13 @@ button{font:inherit;color:inherit;cursor:pointer}
 #B .frame{height:100%;display:flex;flex-direction:column}
 #B .head{display:flex;justify-content:space-between;align-items:center;margin:6px 0 22px}
 #B .tag{display:none;font-size:14px;opacity:.55}
-#B .list{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:safe center;overflow:hidden}
+#B .list{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:safe center;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;padding-bottom:8px}
+#B .list::-webkit-scrollbar{display:none}
 #B .row{display:block;width:100%;text-align:left;background:none;border:0;border-top:1.5px solid rgba(255,255,255,.2);padding:8px 0 4px;transition:opacity .25s;cursor:pointer}
 #B .row:last-child{border-bottom:1.5px solid rgba(255,255,255,.2)}
 #B .line{display:flex;align-items:baseline;gap:12px}
 #B .n{font-size:12px;width:22px;flex:none}
-#B .name{font-weight:900;font-size:clamp(40px,11.6vw,124px);line-height:.92;letter-spacing:-.045em;transition:transform .35s}
+#B .name{font-weight:900;font-size:clamp(40px,min(11.6vw,12.5vh),124px);line-height:.92;letter-spacing:-.045em;transition:transform .35s}
 #B .meta{display:none;margin-left:auto;font-size:15px;text-align:right;white-space:nowrap}
 #B .ghost .name{color:transparent;-webkit-text-stroke:1.3px rgba(255,255,255,.4)}
 #B .list.hovering .row{opacity:.28}
