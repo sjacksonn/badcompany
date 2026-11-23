@@ -193,15 +193,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     v.addEventListener('ended',stop);
     v.addEventListener('click',function(){location.href=t.querySelector('.cover').href});
   });
-  // credits: turn the tile over and back
-  document.querySelectorAll('.game').forEach(function(t){
-    var b=t.querySelector('.inf'),back=t.querySelector('.back');if(!b)return;
-    function flip(e){if(e){if(e.target.closest&&e.target.closest('.back a'))return;e.preventDefault();e.stopPropagation()}
-      var v=t.querySelector('.trv');if(v){t.classList.remove('playing');v.pause()}
-      t.classList.add('turning');
-      setTimeout(function(){var on=t.classList.toggle('flipped');b.setAttribute('aria-expanded',on);back.setAttribute('aria-hidden',!on);t.classList.remove('turning')},180)}
-    b.addEventListener('click',flip);back.addEventListener('click',flip);
-  });
   // carousel: dots, keys, wheel, mouse drag
   var tiles=document.getElementById('tiles'),list,dots,dotBox=document.getElementById('dots');
   // on wide screens, add extra coming-soon tiles so the row runs off the right edge
@@ -221,6 +212,20 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   function go(i){i=Math.max(0,Math.min(list.length-1,i));tiles.scrollTo({left:i*step(),behavior:'smooth'})}
   tiles.addEventListener('scroll',function(){var i=cur();dots.forEach(function(d,k){d.classList.toggle('on',k===i)})},{passive:true});
   fill();addEventListener('resize',fill);
+  // credits: turn the tile over and back
+  document.querySelectorAll('.game').forEach(function(t){
+    var b=t.querySelector('.inf'),back=t.querySelector('.back');if(!b)return;
+    function flip(e){if(e){if(e.target.closest&&e.target.closest('.back a'))return;e.preventDefault();e.stopPropagation()}
+      var v=t.querySelector('.trv');if(v){t.classList.remove('playing');v.pause()}
+      t.classList.add('turning');
+      setTimeout(function(){var on=t.classList.toggle('flipped');b.setAttribute('aria-expanded',on);back.setAttribute('aria-hidden',!on);t.classList.remove('turning')},180)}
+    // a tile half off-screen: slide it fully into view first, then turn it (stops the focus jump)
+    function go2(e){e.preventDefault();e.stopPropagation();
+      var r=t.getBoundingClientRect(),c=tiles.getBoundingClientRect();
+      if(r.left<c.left-1||r.right>c.right+1){var i=[].indexOf.call(tiles.querySelectorAll('.tile'),t);go(i);setTimeout(function(){flip()},380)}else flip()}
+    b.addEventListener('pointerdown',function(e){e.preventDefault()});back.addEventListener('pointerdown',function(e){if(!(e.target.closest&&e.target.closest('a')))e.preventDefault()});
+    b.addEventListener('click',go2);back.addEventListener('click',go2);
+  });
   addEventListener('keydown',function(e){
     if(e.key==='Escape')setAbout(false);
     if(e.key==='ArrowRight')go(cur()+1);
