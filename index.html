@@ -45,13 +45,13 @@ button{font:inherit;color:inherit;cursor:pointer}
 #B .meta{display:none;margin-left:auto;font-size:15px;text-align:right;white-space:nowrap}
 #B .ghost .name{color:transparent;-webkit-text-stroke:1.3px rgba(255,255,255,.4)}
 #B .list.hovering .row{opacity:.28}
-@media not ((min-width:900px) and (hover:hover)){#B .list.hovering .row:not(.on) .name{font-size:clamp(30px,8.6vw,80px)}}
+@media not ((min-width:900px) and (hover:hover)){#B .name{font-size:clamp(32px,9.4vw,80px);transition:none}#B .row{contain:paint;transform:translateZ(0)}#B .list{justify-content:flex-start;padding-top:4px}}
 #B .list.hovering .row.on{opacity:1;border-top-color:#fff}
 @media (min-width:900px) and (hover:hover){#B .row.on .name{transform:translateX(10px)}}
 #B .open{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s}
 #B .row.on .open{grid-template-rows:1fr}
 #B .open>div{overflow:hidden}
-#B .clipm{position:relative;margin:10px 0;border-radius:18px;overflow:hidden;height:min(27vh,240px);border:1.5px solid #fff;background:#111}
+#B .clipm{position:relative;margin:10px 0;border-radius:18px;overflow:hidden;height:min(26vh,240px);border:1.5px solid #fff;background:#111}
 #B .clipm img,#B .clipm video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 #B .obtns{display:flex;gap:10px;padding-bottom:12px}
 #B .obtns .pill{flex:1}
@@ -210,7 +210,7 @@ addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY});
 $('bhint').textContent=desk()?'HOVER A NAME TO PEEK · CLICK TO PLAY':'TAP A NAME TO OPEN IT';
 
 /* ---------- B · tiles view ---------- */
-$('btiles').innerHTML=G.map((g,i)=>g.soon?`<div class="tile soon">COMING<br>SOON</div>`:`<div class="tile" data-i="${i}"><img class="bg" src="${g.bg}" alt="${g.name}">${g.logo?`<img class="lg" src="${g.logo}" alt="">`:''}<video muted playsinline preload="none" data-src="${g.vid}"></video>
+$('btiles').innerHTML=G.concat([G[3],G[3]]).map((g,i)=>g.soon?`<div class="tile soon">COMING<br>SOON</div>`:`<div class="tile" data-i="${i}"><img class="bg" src="${g.bg}" alt="${g.name}">${g.logo?`<img class="lg" src="${g.logo}" alt="">`:''}<video muted playsinline preload="none" data-src="${g.vid}"></video>
  <button class="tx" type="button" aria-label="Close trailer">✕</button>${IB(i)}<div class="back" aria-hidden="true"><button class="bx" type="button" aria-label="Close credits">✕</button><h3>${g.name}</h3>${dl(g)}</div><div class="tb"><a class="pill solid" href="${g.url}" target="_blank" rel="noopener">PLAY NOW</a><button class="pill trl" type="button">TRAILER</button></div></div>`).join('');
 const tiles=[...document.querySelectorAll('#B .tile')];
 function sizeTiles(){const box=$('btiles');const h=box.clientHeight;if(!h)return;const w=Math.min(innerWidth*.8,h*345/465,430);tiles.forEach(t=>{t.style.width=w+'px'})}
