@@ -52,8 +52,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .game.playing .trv,.game.playing .trx{opacity:1;pointer-events:auto}
 .game.playing .trl{display:none}
 /* credits: the i button turns the tile over */
-.game{transition:transform .18s ease-in}
-.game.turning{transform:perspective(900px) rotateY(90deg)}
+.game{transition:transform .16s ease-in;transform-origin:50% 50%;backface-visibility:hidden}
+.game.turning{transform:scaleX(.02)}
 .game .inf{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.55);border:1.5px solid #fff;z-index:8;cursor:pointer;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 .game .inf:before{content:"i";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font:700 17px/1 Georgia,"Times New Roman",serif;font-style:italic}
 .game .inf:hover{background:#fff}.game .inf:hover:before{color:#000}
@@ -66,11 +66,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .game.flipped .back{display:block}
 .game.flipped{background:#000}.game.flipped img.bg,.game.flipped img.logo,.game.flipped .btns{visibility:hidden}
 .game .back .cr{height:100%;border:1.5px solid #fff;border-radius:22px;display:flex;flex-direction:column;justify-content:flex-start;padding:30px 22px 26px;text-align:left;color:#fff}
-.game .back h3{font-size:min(7vw,28px);line-height:.95;letter-spacing:-.01em;margin:0 0 22px}
+.game .back h3{font-size:min(5.4vw,21px);line-height:1;letter-spacing:-.01em;margin:0 0 18px}
 .game .back dl{margin:0;display:grid;gap:4px}
-.game .back dt{font-size:12px;letter-spacing:.04em;text-transform:uppercase;opacity:.55;margin-top:12px}
+.game .back dt{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;opacity:.5;margin-top:11px;font-weight:700}
 .game .back dt:first-child{margin-top:0}
-.game .back dd{margin:0;font-size:min(4.6vw,19px);line-height:1.1}
+.game .back dd{margin:0;font-size:min(3.9vw,15px);line-height:1.25;font-weight:500}
 .game .back a{color:#fff;text-decoration:underline;text-underline-offset:.12em;text-decoration-thickness:.06em}
 @media (prefers-reduced-motion:reduce){.game{transition:none}}
 
