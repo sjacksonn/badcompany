@@ -169,7 +169,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 <script>
 {
 const G=[
- {id:'hdr',name:'HOT DOG RUN',lines:'HOT DOG<br>RUN',kind:'ENDLESS RUNNER',pitch:'An endless run through New York at night, in a hot dog cart.',url:'https://hotdogrun.badcompany.fyi',bg:'img/hdr-bg.webp',logo:'img/hdr-logo.webp',vid:'vid/hdr-trailer.mp4',poster:'vid/hdr-trailer.jpg'},
+ {id:'hdr',name:'HOT DOG RUN',lines:'HOT DOG<br>RUN',kind:'ENDLESS RUNNER',pitch:'An endless run through New York at night, in a hot dog cart.',url:'https://hotdogrun.badcompany.fyi',bg:'img/hdr-bg.webp',logo:'img/hdr-logo.webp',vid:'vid/hdr-trailer.mp4',deskVid:'vid/hdr-desk.mp4?v=1',poster:'vid/hdr-trailer.jpg'},
  {id:'hh',name:'HELLHOUND',lines:'HELL<br>HOUND',kind:'SIDE-SCROLLER',pitch:'Three heads. One way out. A 16-bit run through The Inferno.',url:'https://hellhound.badcompany.fyi',bg:'img/hh-bg.webp',logo:'img/hh-logo.webp',vid:'vid/hh-trailer.mp4',poster:'vid/hh-trailer.jpg'},
  {id:'gh',name:'GROUP HUG',lines:'GROUP<br>HUG',kind:'HUGGING, MOSTLY',pitch:'One hug becomes a hundred. Meet a Legend every 100 hugs.',url:'https://grouphug.badcompany.fyi',bg:'img/gh-bg.webp?v=2',logo:'img/gh-logo.webp?v=1',vid:'vid/gh-trailer.mp4',poster:'vid/gh-trailer.jpg'},
  {id:'bf',name:'BUTTER FLYS',lines:'BUTTER<br>FLYS',kind:'ENDLESS CLIMBER',pitch:'Born to fly. Destined to melt. Climb an endless popcorn machine before you turn into a puddle.',url:'https://butterflys.badcompany.fyi',bg:'img/bf-bg.webp?v=1',logo:'img/bf-logo.webp?v=1',vid:'vid/bf-trailer.mp4',poster:'vid/bf-trailer.jpg'},
@@ -197,8 +197,9 @@ function setB(i){bi=i;rows.forEach((r,k)=>r.classList.toggle('on',k===i));$('lis
  if(desk()){const g=G[i];const c=$('card'),v=$('cardV');
   if(i<0||g.soon){c.classList.remove('on');v.pause();return}
   $('cardBg').src=g.bg;const lg=g.cardLogo||g.logo;$('cardLg').style.display=lg?'':'none';if(lg)$('cardLg').src=lg;
-  if(!g.vid){v.pause();v.removeAttribute('src');v.dataset.cur='';v.classList.remove('ready');c.classList.add('on');return}
-  if(v.dataset.cur!==g.vid){v.classList.remove('ready');v.dataset.cur=g.vid;v.src=g.vid;v.oncanplay=()=>setTimeout(()=>v.classList.add('ready'),500)}play(v);c.classList.add('on')}
+  const gv=g.deskVid||g.vid;
+  if(!gv){v.pause();v.removeAttribute('src');v.dataset.cur='';v.classList.remove('ready');c.classList.add('on');return}
+  if(v.dataset.cur!==gv){v.classList.remove('ready');v.dataset.cur=gv;v.src=gv;v.oncanplay=()=>setTimeout(()=>v.classList.add('ready'),500)}play(v);c.classList.add('on')}
  else{rows.forEach((r,k)=>{const v=r.querySelector('video');if(!v)return;if(k===i){if(!v.src)v.src=v.dataset.src;play(v)}else v.pause()})}}
 rows.forEach((r,k)=>{
  r.addEventListener('pointerenter',e=>{if(desk()&&e.pointerType==='mouse')setB(k)});
@@ -216,7 +217,7 @@ $('bhint').textContent=desk()?'HOVER A NAME TO PEEK · CLICK TO PLAY':'TAP A NAM
 
 /* ---------- B · tiles view ---------- */
 const SOON=G.find(g=>g.soon);
-$('btiles').innerHTML=G.concat([SOON,SOON]).map((g,i)=>g.soon?`<div class="tile soon">COMING<br>SOON</div>`:`<div class="tile" data-i="${i}"><img class="bg" src="${g.bg}" alt="${g.name}">${g.logo?`<img class="lg" src="${g.logo}" alt="">`:''}${g.vid?`<video muted playsinline preload="none" data-src="${g.vid}"></video>`:''}
+$('btiles').innerHTML=G.concat([SOON,SOON]).map((g,i)=>g.soon?`<div class="tile soon">COMING<br>SOON</div>`:`<div class="tile" data-i="${i}"><img class="bg" src="${g.bg}" alt="${g.name}">${g.logo?`<img class="lg" src="${g.logo}" alt="">`:''}${g.vid?`<video muted playsinline preload="none" data-src="${desk()&&g.deskVid?g.deskVid:g.vid}"></video>`:''}
  <button class="tx" type="button" aria-label="Close trailer">✕</button>${IB(i)}<div class="back" aria-hidden="true"><button class="bx" type="button" aria-label="Close credits">✕</button><h3>${g.name}</h3>${dl(g)}</div><div class="tb"><a class="pill solid" href="${g.url}" target="_blank" rel="noopener">PLAY NOW</a>${g.vid?'<button class="pill trl" type="button">TRAILER</button>':''}</div></div>`).join('');
 const tiles=[...document.querySelectorAll('#B .tile')];
 function sizeTiles(){const box=$('btiles');const h=box.clientHeight;if(!h)return;const w=Math.min(innerWidth*.8,h*345/465,430);tiles.forEach(t=>{t.style.width=w+'px'})}
