@@ -18,229 +18,225 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&display=swap" rel="stylesheet">
 <!-- © 2026 BAD COMPANY. ALL RIGHTS RESERVED. -->
 <style>
-:root{--tw:min(72vw,calc((100svh - 330px) * .742),420px);--bw:calc(100vw - 32px)}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#000;color:#fff}
-body{font-family:"Helvetica Neue",Helvetica,"Inter Tight",Arial,sans-serif;font-weight:700;-webkit-font-smoothing:antialiased;overflow:hidden}
+:root{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;height:100%;background:#000;color:#fff;overflow:hidden;font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif;font-weight:700;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 a{color:inherit}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+button{font:inherit;color:inherit;cursor:pointer}
+.app{position:fixed;inset:0;display:none}
+.app.on{display:block}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;padding:0 22px;min-height:48px;font-weight:800;font-size:16px;text-decoration:none;white-space:nowrap;border:1.5px solid #fff;background:transparent;letter-spacing:.01em}
+.pill.solid{background:#fff;color:#000}
+.pill:focus-visible,.row:focus-visible,.nav:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.word{font-weight:900;font-size:22px;letter-spacing:-.02em}
+.ab{min-height:40px;padding:0 16px;font-size:14px}
 
-.page{height:100svh;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom)}
-.marq{overflow:hidden;flex:0 0 auto;padding:calc(18px + env(safe-area-inset-top)) 0 6px;user-select:none}
-.marq .track{display:inline-flex;white-space:nowrap;animation:slide 14s linear infinite;font-size:min(31vw,24svh);line-height:.8;letter-spacing:-.035em;padding-top:.06em}
-.marq .track span{padding-right:.28em}
-@keyframes slide{to{transform:translateX(-50%)}}
+/* ===== B · INDEX ===== */
+#B{padding:max(16px,env(safe-area-inset-top)) 18px max(20px,env(safe-area-inset-bottom))}
+#B .frame{height:100%;display:flex;flex-direction:column}
+#B .head{display:flex;justify-content:space-between;align-items:center;margin:6px 0 22px}
+#B .tag{display:none;font-size:14px;opacity:.55}
+#B .list{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:safe center;overflow:hidden}
+#B .row{display:block;width:100%;text-align:left;background:none;border:0;border-top:1.5px solid rgba(255,255,255,.2);padding:8px 0 4px;transition:opacity .25s;cursor:pointer}
+#B .row:last-child{border-bottom:1.5px solid rgba(255,255,255,.2)}
+#B .line{display:flex;align-items:baseline;gap:12px}
+#B .n{font-size:12px;width:22px;flex:none}
+#B .name{font-weight:900;font-size:clamp(40px,11.6vw,124px);line-height:.92;letter-spacing:-.045em;transition:transform .35s}
+#B .meta{display:none;margin-left:auto;font-size:15px;text-align:right;white-space:nowrap}
+#B .ghost .name{color:transparent;-webkit-text-stroke:1.3px rgba(255,255,255,.4)}
+#B .list.hovering .row{opacity:.28}
+@media not ((min-width:900px) and (hover:hover)){#B .list.hovering .row:not(.on) .name{font-size:clamp(30px,8.6vw,80px)}}
+#B .list.hovering .row.on{opacity:1;border-top-color:#fff}
+@media (min-width:900px) and (hover:hover){#B .row.on .name{transform:translateX(10px)}}
+#B .open{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s}
+#B .row.on .open{grid-template-rows:1fr}
+#B .open>div{overflow:hidden}
+#B .clipm{position:relative;margin:10px 0;border-radius:18px;overflow:hidden;height:min(27vh,240px);border:1.5px solid #fff;background:#111}
+#B .clipm img,#B .clipm video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#B .obtns{display:flex;gap:10px;padding-bottom:12px}
+#B .obtns .pill{flex:1}
+#B .foot{display:flex;justify-content:space-between;font-size:12px;opacity:.5;gap:10px;margin-top:16px}
+#B .foot .hide-s{display:none}
+#B .card{display:none}
+/* square view switch + full-width about bar */
+#B .vt{display:flex;border:1.5px solid #fff}
+#B .vt button{border:0;background:none;min-height:40px;padding:0 14px;font-size:13px;font-weight:800;letter-spacing:.03em}
+#B .vt button.on{background:#fff;color:#000}
+#B .vt button:focus-visible,.aboutbar:focus-visible{outline:3px solid #fff;outline-offset:3px}
+#B .bhint{font-size:9.5px;letter-spacing:.04em;opacity:.45;margin:12px 0 10px}
+/* About: one box pinned to the bottom that grows upwards over the page */
+#B .abslot{position:relative;height:56px;flex:none}
+#B .abox{position:absolute;left:0;right:0;bottom:0;z-index:30;background:#000;border:1.5px solid #fff;display:flex;flex-direction:column-reverse}
+#B .abox .aboutbar{border:0;min-height:53px}
+#B .aboutbar i{display:inline-block;font-size:22px;transition:transform .3s}
+#B .abox.on .aboutbar i{transform:rotate(45deg)}
+#B .abBody{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+#B .abox.on .abBody{grid-template-rows:1fr}
+#B .abIn{overflow:hidden;padding:0 18px}
+#B .abIn p{margin:0 0 12px;font-size:16px;line-height:1.2;max-width:640px}
+#B .abIn p:first-child{padding-top:18px}
+#B .abIn a{text-decoration:underline;text-underline-offset:.12em}
+#B .abIn .c{font-size:10px;opacity:.5;padding-bottom:6px;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,.2)}
+@media (min-width:900px){#B .abIn p{font-size:20px}#B .abIn .c{font-size:11px}}
+#B .abShade{position:absolute;inset:0;z-index:29;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .3s}
+#B.abo .abShade{opacity:1;pointer-events:auto}
+.aboutbar{display:flex;justify-content:space-between;align-items:center;width:100%;min-height:56px;padding:0 18px;border:1.5px solid #fff;border-radius:0;background:#000;font-weight:900;font-size:18px;letter-spacing:-.01em;flex:none}
+.aboutbar i{font-style:normal;font-size:26px;font-weight:500;line-height:1}
+/* tiles view */
+#B .tiles{display:none;flex:1;min-height:0;gap:14px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;align-items:center;scrollbar-width:none;margin:0 -18px;padding:0 18px;scroll-padding:0 18px}
+#B .tiles::-webkit-scrollbar{display:none}
+#B.tv .list{display:none}#B.tv .tiles{display:flex}
+#B .tile{position:relative;flex:none;aspect-ratio:345/465;border-radius:24px;overflow:hidden;scroll-snap-align:center;background:#111}
+#B .tile img.bg,#B .tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#B .tile img.lg{position:absolute;left:8%;width:84%;top:6%;filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
+#B .tile video{opacity:0;pointer-events:none;transition:opacity .3s;background:#000;z-index:3}
+#B .tile.playing video{opacity:1;pointer-events:auto}
+#B .tile .tb{position:absolute;left:0;right:0;bottom:7%;display:flex;justify-content:center;gap:8px;z-index:4}
+#B .tile .tb .pill{min-height:42px;font-size:14px;padding:0 16px}
+#B .tile .tb .trl{background:rgba(0,0,0,.55)}
+#B .tile.playing .tb .trl{display:none}
+#B .tile .tx{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:1.5px solid #fff;background:rgba(0,0,0,.55);z-index:5;display:none}
+#B .tile.playing .tx{display:block}
+#B .tile.soon{background:#000;border:1.5px dashed rgba(255,255,255,.7);display:grid;place-items:center;font-weight:900;font-size:30px;line-height:.92;text-align:center}
+@media (min-width:900px){#B .tiles{margin:0 -48px;padding:0 48px;scroll-padding:0 48px}#B .tile{scroll-snap-align:start}}
+@media (min-width:900px) and (hover:hover){
+ #B{padding:max(28px,env(safe-area-inset-top)) 48px 36px}
+ #B .tag{display:block}
+ #B .meta{display:block}
+ #B .n{font-size:16px;width:60px}
+ #B .open{display:none}
+ #B .foot{font-size:14px}
+ #B .foot .hide-s{display:inline}
+ #B .card{display:block;position:fixed;left:0;top:0;width:280px;aspect-ratio:345/465;border-radius:22px;overflow:hidden;border:1.5px solid #fff;box-shadow:0 24px 60px rgba(0,0,0,.7);pointer-events:none;opacity:0;transition:opacity .25s;z-index:20;background:#111}
+ #B .card.on{opacity:1}
+ #B .card img,#B .card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+ #B .card .lg{inset:auto;left:8%;width:84%;top:6%;height:auto}
+ #B .card video{opacity:0;transition:opacity .4s}#B .card video.ready{opacity:1}
+ #B .card .cue{position:absolute;left:0;right:0;bottom:6%;text-align:center;font-size:13px;font-weight:800}
+ #B .card .cue span{background:#fff;color:#000;border-radius:99px;padding:8px 16px}
+}
 
-.stage{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
-.tiles{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding:8px calc((100vw - var(--tw))/2);scrollbar-width:none;cursor:grab}
-.tiles::-webkit-scrollbar{display:none}
-.tiles.drag{scroll-snap-type:none;cursor:grabbing}
-.tiles.drag .tile{pointer-events:none}
-.tile{position:relative;flex:0 0 var(--tw);width:var(--tw);aspect-ratio:345/465;scroll-snap-align:center;border-radius:30px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:min(7.5vw,30px);line-height:.92;letter-spacing:-.01em;text-decoration:none;overflow:hidden;user-select:none;-webkit-user-drag:none}
-.tile img{-webkit-user-drag:none;pointer-events:none}
-.soon{border:1.5px dashed rgba(255,255,255,.75)}
-.game{background:#d6d6d6}
-.game .cover{position:absolute;inset:0;z-index:1}
-.game .btns{position:absolute;left:0;right:0;bottom:7%;display:flex;justify-content:center;gap:8px;z-index:4}
-.game .btns .play{position:static;transform:none;text-decoration:none}
-.game .trl{background:rgba(0,0,0,.55);color:#fff;border:1.5px solid #fff;border-radius:999px;padding:.5em 1.1em .45em;font-size:15px;letter-spacing:.02em;white-space:nowrap;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
-.game .trl:hover{background:#fff;color:#000}
-.game .trv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none;z-index:3;transition:opacity .3s;background:#000}
-.game .trx{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.55);border:1.5px solid #fff;z-index:5;opacity:0;pointer-events:none;transition:opacity .3s}
-.game .trx:before,.game .trx:after{content:"";position:absolute;left:9px;right:9px;top:50%;height:2px;margin-top:-1px;background:#fff;transform:rotate(45deg)}.game .trx:after{transform:rotate(-45deg)}
-.game.playing .trv,.game.playing .trx{opacity:1;pointer-events:auto}
-.game.playing .trl{display:none}
-/* credits: the i button turns the tile over */
-.game{transition:transform .16s ease-in;transform-origin:50% 50%;backface-visibility:hidden}
-.game.turning{transform:scaleX(.02)}
-.game .inf{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.55);border:1.5px solid #fff;z-index:8;cursor:pointer;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
-.game .inf:before{content:"i";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font:700 17px/1 Georgia,"Times New Roman",serif;font-style:italic}
-.game .inf:hover{background:#fff}.game .inf:hover:before{color:#000}
-.game.flipped .inf:before{content:"";}
-.game.flipped .inf:after,.game.flipped .inf:before{content:"";position:absolute;left:9px;right:9px;top:50%;height:2px;margin-top:-1px;background:#fff;transform:rotate(45deg);inset:auto 9px auto 9px}
-.game.flipped .inf:after{transform:rotate(-45deg)}
-.game.flipped .inf:hover:before,.game.flipped .inf:hover:after{background:#000}
-.game.playing .inf{display:none}
-.game .back{position:absolute;inset:0;z-index:7;background:#000;padding:10px;display:none;cursor:pointer}
-.game.flipped .back{display:block}
-.game.flipped{background:#000}.game.flipped img.bg,.game.flipped img.logo,.game.flipped .btns{visibility:hidden}
-.game .back .cr{height:100%;border:1.5px solid #fff;border-radius:22px;display:flex;flex-direction:column;justify-content:flex-start;padding:30px 22px 26px;text-align:left;color:#fff}
-.game .back h3{font-size:min(5.4vw,21px);line-height:1;letter-spacing:-.01em;margin:0 0 18px}
-.game .back dl{margin:0;display:grid;gap:4px}
-.game .back dt{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;opacity:.5;margin-top:11px;font-weight:700}
-.game .back dt:first-child{margin-top:0}
-.game .back dd{margin:0;font-size:min(3.9vw,15px);line-height:1.25;font-weight:500}
-.game .back a{color:#fff;text-decoration:underline;text-underline-offset:.12em;text-decoration-thickness:.06em}
-@media (prefers-reduced-motion:reduce){.game{transition:none}}
 
-.hh{background:#2a0606}
-.hh img.logo{top:5%}
-.gh{background:#f6e6f6}
-.game.gh .play{background:#ff4d6d;color:#fff}
-.game.gh .trl{background:#fff;color:#ff4d6d;border-color:#ff4d6d}.game.gh .trl:hover{background:#ff4d6d;color:#fff}
-.game.gh .trv{background:#fff}
-.game img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
-.game img.logo{position:absolute;left:8%;width:84%;top:7%;filter:drop-shadow(0 6px 10px rgba(0,0,0,.45));transition:transform .4s}
-.game .play{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);background:#fff;color:#000;border-radius:999px;padding:.5em 1.1em .45em;font-size:15px;letter-spacing:.02em;white-space:nowrap}
-@media (hover:hover){.game:hover img.bg{transform:scale(1.06)}.game:hover img.logo{transform:translateY(-4px) rotate(-2deg)}.soon:hover{border-color:#fff}}
-
-.dots{display:flex;gap:8px;justify-content:center;margin-top:18px}
-.dots b{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);transition:background .2s,width .2s;cursor:pointer}
-.dots b.on{background:#fff;width:20px;border-radius:4px}
-
-.pl{position:relative;width:18px;height:18px;flex:0 0 18px;display:inline-block;transition:transform .4s}
-.pl:before,.pl:after{content:"";position:absolute;left:0;top:50%;width:100%;height:2.5px;margin-top:-1.25px;background:currentColor;border-radius:1px}
-.pl:after{transform:rotate(90deg)}
-
-.abar{flex:0 0 58px;width:var(--bw);margin:0 auto 16px;visibility:hidden}
-.shade{position:fixed;inset:0;z-index:5;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .35s}
-.about .shade{opacity:1;pointer-events:auto}
-.panel{position:fixed;left:0;right:0;bottom:calc(16px + env(safe-area-inset-bottom));width:var(--bw);margin:0 auto;display:flex;flex-direction:column;justify-content:flex-end;padding:0 22px;background:#000;border:1.5px solid #fff;border-radius:22px;z-index:10;max-height:58px;overflow:hidden;transition:max-height .5s cubic-bezier(.2,.8,.2,1)}
-.panel .txt{flex:0 0 auto;max-width:760px;font-size:22px;line-height:1.02;letter-spacing:-.01em;padding-top:24px;opacity:0;transition:opacity .25s}
-.about .panel .txt{opacity:1;transition:opacity .35s .15s}
-.panel .txt p+p{margin-top:.9em}
-.panel .mail{text-decoration:underline;text-underline-offset:.12em;text-decoration-thickness:.06em}
-.panel .copy{font-size:11px;letter-spacing:.04em;opacity:.55;margin-top:1.6em;line-height:1.3}
-.panel .close{flex:0 0 55px;display:flex;justify-content:space-between;align-items:center;font-size:20px;letter-spacing:-.01em}
-.about .panel .close .pl{transform:rotate(45deg)}
-@media (max-width:760px){.marq .track{font-size:36vw}}
-@media (min-width:761px){.tiles{padding:8px 16px;scroll-padding:0 16px}.tile{scroll-snap-align:start}}
-@media (prefers-reduced-motion:reduce){.marq .track{animation-duration:60s}}
+/* credits: i buttons */
+.ib{flex:none;width:40px;height:40px;border-radius:50%;border:1.5px solid #fff;background:rgba(0,0,0,.55);font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:700;font-size:19px;line-height:1;display:grid;place-items:center;padding:0}
+.ib:focus-visible{outline:3px solid #fff;outline-offset:3px}
+#B .obtns .ib{width:48px;height:48px}
+#B .line .ib{display:none;align-self:center;margin-left:18px;width:34px;height:34px;font-size:16px;opacity:.55;transition:opacity .2s}
+#B .row.on .line .ib,#B .line .ib:hover{opacity:1}
+#B .tile>.ib{position:absolute;top:12px;right:12px;z-index:5}
+#B .tile.playing>.ib{display:none}
+#B .tile{transition:transform .18s ease-in}
+#B .tile.turning{transform:scaleX(.02)}
+#B .tile .back{position:absolute;inset:0;z-index:6;background:#000;border:1.5px solid #fff;border-radius:24px;display:none;flex-direction:column;justify-content:center;padding:26px 24px;text-align:left;cursor:pointer}
+#B .tile.cr .back{display:flex}
+#B .back h3{font-weight:900;font-size:min(6vw,24px);letter-spacing:-.02em;margin:0 0 18px}
+#B .back dl{margin:0}
+#B .back dt{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;opacity:.55;margin:0 0 3px}
+#B .back dd{margin:0 0 14px;font-size:min(4vw,16px);font-weight:500}
+#B .back a{text-decoration:underline;text-underline-offset:.12em}
+#B .back .bx{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:1.5px solid #fff;background:none;font-size:15px}
+#B .abIn h3{font-weight:900;font-size:22px;letter-spacing:-.02em;margin:0;padding-top:18px}
+#B .abIn dl{margin:12px 0 4px}
+#B .abIn dt{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;opacity:.55;margin:0 0 3px}
+#B .abIn dd{margin:0 0 12px;font-size:16px;font-weight:500}
+@media (min-width:900px) and (hover:hover){#B .line .ib{display:grid}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
-<main class="page" id="page">
-  <h1 class="sr">Bad Company</h1>
-  <div class="marq" aria-hidden="true"><div class="track"><span>BAD COMPANY</span><span>BAD COMPANY</span><span>BAD COMPANY</span><span>BAD COMPANY</span></div></div>
-
-  <section class="stage">
-    <div class="tiles" id="tiles">
-      <div class="tile game hdr">
-        <a class="cover" href="https://hotdogrun.badcompany.fyi" aria-label="Play Hot Dog Run"></a>
-        <img class="bg" src="img/hdr-bg.webp" alt="">
-        <img class="logo" src="img/hdr-logo.webp" alt="Hot Dog Run">
-        <video class="trv" src="vid/hdr-trailer.mp4?v=2" poster="vid/hdr-trailer.jpg?v=2" muted playsinline preload="none" aria-label="Hot Dog Run trailer"></video>
-        <button class="trx" type="button" aria-label="Close trailer"></button>
-        <div class="btns"><a class="play" href="https://hotdogrun.badcompany.fyi">PLAY NOW</a><button class="trl" type="button">TRAILER</button></div>
-        <button class="inf" type="button" aria-label="Credits for Hot Dog Run" aria-expanded="false"></button>
-        <div class="back" aria-hidden="true"><div class="cr"><h3>HOT DOG RUN</h3><dl><dt>Dev</dt><dd>Sam</dd><dt>Platforms</dt><dd>Claude (Build) &amp; ChatGPT (Artwork)</dd><dt>Inspired by</dt><dd>NYC Hot Dog Sellers</dd></dl></div></div>
-      </div>
-      <div class="tile game hh">
-        <a class="cover" href="https://hellhound.badcompany.fyi" aria-label="Play Hellhound"></a>
-        <img class="bg" src="img/hh-bg.webp" alt="">
-        <img class="logo" src="img/hh-logo.webp" alt="Hellhound">
-        <video class="trv" src="vid/hh-trailer.mp4?v=1" poster="vid/hh-trailer.jpg?v=1" muted playsinline preload="none" aria-label="Hellhound trailer"></video>
-        <button class="trx" type="button" aria-label="Close trailer"></button>
-        <div class="btns"><a class="play" href="https://hellhound.badcompany.fyi">PLAY NOW</a><button class="trl" type="button">TRAILER</button></div>
-        <button class="inf" type="button" aria-label="Credits for Hellhound" aria-expanded="false"></button>
-        <div class="back" aria-hidden="true"><div class="cr"><h3>HELLHOUND</h3><dl><dt>Dev</dt><dd>Sam</dd><dt>Platforms</dt><dd>Claude (Build) &amp; ChatGPT (Artwork)</dd><dt>Original Artwork</dt><dd><a href="https://morning.fyi" target="_blank" rel="noopener">MØRNING.FYI</a></dd></dl></div></div>
-      </div>
-      <div class="tile game gh">
-        <a class="cover" href="https://grouphug.badcompany.fyi" aria-label="Play Group Hug"></a>
-        <img class="bg" src="img/gh-cover.webp?v=3" alt="Group Hug">
-        <video class="trv" src="vid/gh-trailer.mp4?v=1" poster="vid/gh-trailer.jpg?v=1" muted playsinline preload="none" aria-label="Group Hug trailer"></video>
-        <button class="trx" type="button" aria-label="Close trailer"></button>
-        <div class="btns"><a class="play" href="https://grouphug.badcompany.fyi">PLAY NOW</a><button class="trl" type="button">TRAILER</button></div>
-        <button class="inf" type="button" aria-label="Credits for Group Hug" aria-expanded="false"></button>
-        <div class="back" aria-hidden="true"><div class="cr"><h3>GROUP HUG</h3><dl><dt>Dev</dt><dd>Sam</dd><dt>Platforms</dt><dd>Claude (Build) &amp; ChatGPT (Artwork)</dd></dl></div></div>
-      </div>
-      <div class="tile soon">COMING<br>SOON</div>
-    </div>
-    <div class="dots" id="dots"><b class="on"></b><b></b><b></b><b></b></div>
-
-    <div class="panel" id="panel" role="region" aria-label="About Bad Company">
-      <div class="txt">
-        <p>BAD COMPANY is an experimental vibe coding space ft. games, experiments, experiences &amp; tools. Run by Sam, co-founder of <a class="mail" href="https://instagram.com/morning.fyi" target="_blank" rel="noopener">Ø&nbsp;Group</a>/<a class="mail" href="https://morning.fyi" target="_blank" rel="noopener">MØRNING</a>/<a class="mail" href="https://evening.fyi" target="_blank" rel="noopener">EVENING</a>.</p>
-        <p><a class="mail" href="mailto:contact@badcompany.fyi">contact@badcompany.fyi</a></p>
-        <p class="copy">© 2026 BAD COMPANY. ALL RIGHTS RESERVED.</p>
-      </div>
-      <button class="close" id="close" aria-expanded="false" aria-controls="panel">ABOUT <i class="pl" aria-hidden="true"></i></button>
-    </div>
-  </section>
-
-  <div class="abar" aria-hidden="true"></div>
+<main class="app on" id="B" aria-label="BAD COMPANY">
+  <div class="frame">
+    <div class="head"><span class="word">BAD COMPANY</span><span class="tag">SHIT POSTING GAMES, EXPERIMENTS &amp; TOOLS</span>
+      <div class="vt" role="group" aria-label="View"><button type="button" data-v="list" class="on" aria-pressed="true">LIST</button><button type="button" data-v="tiles" aria-pressed="false">TILES</button></div></div>
+    <div class="list" id="list"></div>
+    <div class="tiles" id="btiles"></div>
+    <span class="bhint" id="bhint">TAP A NAME TO OPEN IT</span>
+    <div class="abslot"><div class="abox" id="abox">
+      <button class="aboutbar" id="abBtn" type="button" aria-expanded="false" aria-controls="abBody">ABOUT <i aria-hidden="true">+</i></button>
+      <div class="abBody" id="abBody"><div class="abIn" id="abIn">
+        <p>BAD COMPANY is an experimental vibe coding space ft. games, experiments, experiences &amp; tools. Run by Sam, co-founder of <a href="https://instagram.com/morning.fyi" target="_blank" rel="noopener">Ø&nbsp;Group</a>/<a href="https://morning.fyi" target="_blank" rel="noopener">MØRNING</a>/<a href="https://evening.fyi" target="_blank" rel="noopener">EVENING</a>.</p>
+        <p><a href="mailto:contact@badcompany.fyi">contact@badcompany.fyi</a></p>
+        <p class="c">© 2026 BAD COMPANY. ALL RIGHTS RESERVED.</p>
+      </div></div>
+    </div></div>
+  </div>
+  <div class="abShade" id="abShade"></div>
+  <div class="card" id="card" aria-hidden="true"><img id="cardBg" alt=""><video id="cardV" muted playsinline loop></video><img class="lg" id="cardLg" alt=""><div class="cue"><span>CLICK TO PLAY</span></div></div>
 </main>
-<div class="shade" id="shade"></div>
 
 <script>
-/* © 2026 BAD COMPANY. ALL RIGHTS RESERVED. */
-(function(){
-  var body=document.body,panel=document.getElementById('panel'),btn=document.getElementById('close');
-  function setAbout(on){
-    body.classList.toggle('about',on);
-    btn.setAttribute('aria-expanded',on);
-    panel.style.maxHeight=on?(panel.querySelector('.txt').offsetHeight+btn.offsetHeight+4)+'px':'';
-  }
-  btn.onclick=function(){setAbout(!body.classList.contains('about'))};
-  document.getElementById('shade').onclick=function(){setAbout(false)};
-  addEventListener('resize',function(){if(body.classList.contains('about'))setAbout(true)});
+{
+const G=[
+ {id:'hdr',name:'HOT DOG RUN',lines:'HOT DOG<br>RUN',kind:'ENDLESS RUNNER',pitch:'An endless run through New York at night, in a hot dog cart.',url:'https://hotdogrun.badcompany.fyi',bg:'img/hdr-bg.webp',logo:'img/hdr-logo.webp',vid:'vid/hdr-trailer.mp4',poster:'vid/hdr-trailer.jpg'},
+ {id:'hh',name:'HELLHOUND',lines:'HELL<br>HOUND',kind:'SIDE-SCROLLER',pitch:'Three heads. One way out. A 16-bit run through The Inferno.',url:'https://hellhound.badcompany.fyi',bg:'img/hh-bg.webp',logo:'img/hh-logo.webp',vid:'vid/hh-trailer.mp4',poster:'vid/hh-trailer.jpg'},
+ {id:'gh',name:'GROUP HUG',lines:'GROUP<br>HUG',kind:'HUGGING, MOSTLY',pitch:'One hug becomes a hundred. Meet a Legend every 100 hugs.',url:'https://grouphug.badcompany.fyi',bg:'img/gh-cover.webp',logo:'',vid:'vid/gh-trailer.mp4',poster:'vid/gh-trailer.jpg'},
+ {id:'soon',name:'COMING SOON',lines:'COMING<br>SOON',kind:'IN THE LAB',pitch:'Something new is cooking in the lab.',soon:true}
+];
+const $=id=>document.getElementById(id);
+const pad=n=>String(n).padStart(2,'0');
+const CR={hdr:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)'],['Inspired by','NYC Hot Dog Sellers']],
+ hh:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)'],['Original Artwork','<a href="https://morning.fyi" target="_blank" rel="noopener">MØRNING.FYI</a>']],
+ gh:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)']]};
+const dl=g=>'<dl>'+CR[g.id].map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')+'</dl>';
+const IB=(i)=>`<button class="ib" type="button" data-cr="${i}" aria-label="Credits">i</button>`;
+const play=v=>{const p=v.play();if(p&&p.catch)p.catch(()=>{})};
 
-  // swipe down on the panel to close
-  var y0=null;
-  panel.addEventListener('touchstart',function(e){y0=e.touches[0].clientY},{passive:true});
-  panel.addEventListener('touchend',function(e){if(y0!==null&&e.changedTouches[0].clientY-y0>60)setAbout(false);y0=null});
+/* ---------- B · INDEX ---------- */
+const desk=()=>matchMedia('(min-width:900px) and (hover:hover)').matches;
+$('list').innerHTML=G.map((g,i)=>`<div class="row${g.soon?' ghost':''}" tabindex="0" role="button" data-i="${i}" aria-label="${g.name}">
+ <div class="line"><span class="n">${pad(i+1)}</span><span class="name">${g.name}</span><span class="meta">${g.kind}</span>${g.soon?'':IB(i)}</div>
+ <div class="open"><div>${g.soon?'<p style="margin:10px 0 14px;font-weight:500;opacity:.7">'+g.pitch+'</p>':`<div class="clipm"><img src="${g.bg}" alt=""><video muted playsinline loop preload="none" data-src="${g.vid}"></video></div>
+  <div class="obtns"><a class="pill solid" href="${g.url}" target="_blank" rel="noopener">PLAY NOW</a>${IB(i)}</div>`}</div></div>
+</div>`).join('');
+const rows=[...document.querySelectorAll('#B .row')];let bi=-1;
+function setB(i){bi=i;rows.forEach((r,k)=>r.classList.toggle('on',k===i));$('list').classList.toggle('hovering',i>=0);
+ if(desk()){const g=G[i];const c=$('card'),v=$('cardV');
+  if(i<0||g.soon){c.classList.remove('on');v.pause();return}
+  $('cardBg').src=g.bg;$('cardLg').style.display=g.logo?'':'none';if(g.logo)$('cardLg').src=g.logo;
+  if(v.dataset.cur!==g.vid){v.classList.remove('ready');v.dataset.cur=g.vid;v.src=g.vid;v.oncanplay=()=>setTimeout(()=>v.classList.add('ready'),500)}play(v);c.classList.add('on')}
+ else{rows.forEach((r,k)=>{const v=r.querySelector('video');if(!v)return;if(k===i){if(!v.src)v.src=v.dataset.src;play(v)}else v.pause()})}}
+rows.forEach((r,k)=>{
+ r.addEventListener('pointerenter',e=>{if(desk()&&e.pointerType==='mouse')setB(k)});
+ r.addEventListener('click',e=>{if(e.target.closest('a'))return;if(e.target.closest('.ib')){e.stopPropagation();showCr(k);return}if(G[k].soon){r.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:260});return}if(desk()){if(!G[k].soon)window.open(G[k].url,'_blank','noopener')}else setB(bi===k?-1:k)});
+ r.addEventListener('keydown',e=>{if(e.target.closest('.ib'))return;if(e.key==='Enter'&&!G[k].soon)window.open(G[k].url,'_blank','noopener')});
+ r.addEventListener('focus',()=>{if(desk()||r.matches(':focus-visible'))if(bi!==k)setB(k)})});
+$('list').addEventListener('pointerleave',()=>{if(desk())setB(-1)});
+// the card trails the cursor and leans into the movement
+let mx=innerWidth*.6,my=innerHeight/2,cx=mx,cy=my,tilt=0;
+addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY});
+(function follow(){const c=$('card');if(c&&desk()){const tx=Math.min(innerWidth-310,mx+40),ty=Math.max(20,Math.min(innerHeight-400,my-180));
+  const vx=tx-cx;cx+=vx*.14;cy+=(ty-cy)*.14;tilt+=((vx*.05+4)-tilt)*.1;tilt=Math.max(-14,Math.min(18,tilt));
+  c.style.transform=`translate(${cx}px,${cy}px) rotate(${tilt}deg)`}requestAnimationFrame(follow)})();
+$('bhint').textContent=desk()?'HOVER A NAME TO PEEK · CLICK TO PLAY':'TAP A NAME TO OPEN IT';
 
+/* ---------- B · tiles view ---------- */
+$('btiles').innerHTML=G.map((g,i)=>g.soon?`<div class="tile soon">COMING<br>SOON</div>`:`<div class="tile" data-i="${i}"><img class="bg" src="${g.bg}" alt="${g.name}">${g.logo?`<img class="lg" src="${g.logo}" alt="">`:''}<video muted playsinline preload="none" data-src="${g.vid}"></video>
+ <button class="tx" type="button" aria-label="Close trailer">✕</button>${IB(i)}<div class="back" aria-hidden="true"><button class="bx" type="button" aria-label="Close credits">✕</button><h3>${g.name}</h3>${dl(g)}</div><div class="tb"><a class="pill solid" href="${g.url}" target="_blank" rel="noopener">PLAY NOW</a><button class="pill trl" type="button">TRAILER</button></div></div>`).join('');
+const tiles=[...document.querySelectorAll('#B .tile')];
+function sizeTiles(){const box=$('btiles');const h=box.clientHeight;if(!h)return;const w=Math.min(innerWidth*.8,h*345/465,430);tiles.forEach(t=>{t.style.width=w+'px'})}
+tiles.forEach(t=>{const v=t.querySelector('video');if(!v)return;const stop=()=>{t.classList.remove('playing');v.pause()};
+ t.querySelector('.trl').onclick=()=>{tiles.forEach(o=>{if(o!==t){o.classList.remove('playing');const ov=o.querySelector('video');ov&&ov.pause()}});if(!v.src)v.src=v.dataset.src;t.classList.add('playing');v.currentTime=0;play(v)};
+ t.querySelector('.tx').onclick=stop;v.onended=stop;
+ const turn=on=>{t.classList.add('turning');setTimeout(()=>{t.classList.toggle('cr',on);t.querySelector('.back').setAttribute('aria-hidden',!on);t.classList.remove('turning')},180)};
+ t.querySelector('.ib').onclick=()=>{stop();const r=t.getBoundingClientRect(),b=$('btiles');if(r.left<0||r.right>innerWidth){t.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});setTimeout(()=>turn(true),380)}else turn(true)};
+ t.querySelector('.back').addEventListener('click',e=>{if(!e.target.closest('a'))turn(false)})});
+function view(v){const tv=v==='tiles';$('B').classList.toggle('tv',tv);document.querySelectorAll('#B .vt button').forEach(b=>{const on=b.dataset.v===v;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
+ $('bhint').textContent=tv?(desk()?'SCROLL SIDEWAYS FOR MORE':'SWIPE FOR MORE'):(desk()?'HOVER A NAME TO PEEK · CLICK TO PLAY':'TAP A NAME TO OPEN IT');
+ if(tv){setB(-1);requestAnimationFrame(sizeTiles)}else{tiles.forEach(t=>{t.classList.remove('playing');const x=t.querySelector('video');x&&x.pause()});setB(desk()?-1:0)}
+ try{localStorage.setItem('bc_view',v)}catch(e){}}
+document.querySelectorAll('#B .vt button').forEach(b=>b.onclick=()=>view(b.dataset.v));
+addEventListener('resize',sizeTiles);
+/* ---------- B · about box ---------- */
+const ABOUT=$('abIn').innerHTML;
+function showCr(k){const g=G[k];$('abIn').innerHTML=`<h3>${g.name}</h3>${dl(g)}`;$('abBtn').firstChild.textContent='CREDITS ';abox(true,true)}
+function abox(on,keep){if(!on||!keep){if(!on)setTimeout(()=>{if(!$('abox').classList.contains('on')){$('abIn').innerHTML=ABOUT;$('abBtn').firstChild.textContent='ABOUT '}},360);else{$('abIn').innerHTML=ABOUT;$('abBtn').firstChild.textContent='ABOUT '}}$('abox').classList.toggle('on',on);$('B').classList.toggle('abo',on);$('abBtn').setAttribute('aria-expanded',on)}
+$('abBtn').onclick=()=>abox(!$('abox').classList.contains('on'));$('abShade').onclick=()=>abox(false);
+addEventListener('keydown',e=>{if(e.key==='Escape'){abox(false);tiles.forEach(t=>t.classList.remove('cr'))}
+ if(!$('B').classList.contains('tv')){if(e.key==='ArrowDown'&&e.target.closest&&!e.target.closest('.abox')){e.preventDefault();rows[Math.min(rows.length-1,bi+1)].focus()}if(e.key==='ArrowUp'&&!e.target.closest('.abox')){e.preventDefault();rows[Math.max(0,bi-1)].focus()}}});
+document.querySelectorAll('video').forEach(v=>v.pause());
+{let v='list';try{v=localStorage.getItem('bc_view')||'list'}catch(e){}view(v)}
 
-  // trailer plays inside its tile
-  document.querySelectorAll('.game').forEach(function(t){
-    var v=t.querySelector('.trv'),b=t.querySelector('.trl'),x=t.querySelector('.trx');if(!v)return;
-    function stop(){t.classList.remove('playing');v.pause()}
-    b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();
-      document.querySelectorAll('.game.playing').forEach(function(o){if(o!==t){o.classList.remove('playing');o.querySelector('.trv').pause()}});
-      t.classList.add('playing');v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});});
-    x.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();stop()});
-    v.addEventListener('ended',stop);
-    v.addEventListener('click',function(){location.href=t.querySelector('.cover').href});
-  });
-  // carousel: dots, keys, wheel, mouse drag
-  var tiles=document.getElementById('tiles'),list,dots,dotBox=document.getElementById('dots');
-  // on wide screens, add extra coming-soon tiles so the row runs off the right edge
-  function fill(){
-    tiles.querySelectorAll('.extra').forEach(function(t){t.remove()});
-    if(innerWidth>760){
-      var tw=tiles.querySelector('.tile').offsetWidth+16,n=tiles.querySelectorAll('.tile').length;
-      while(n*tw+16<innerWidth+tw*.35&&n<14){var t=document.createElement('div');t.className='tile soon extra';t.innerHTML='COMING<br>SOON';tiles.appendChild(t);n++}
-    }
-    list=tiles.querySelectorAll('.tile');
-    dotBox.innerHTML='';for(var i=0;i<list.length;i++)dotBox.appendChild(document.createElement('b'));
-    dots=dotBox.querySelectorAll('b');dots[0].classList.add('on');
-    dots.forEach(function(d,k){d.onclick=function(){go(k)}});
-  }
-  function step(){return list[0].offsetWidth+16}
-  function cur(){return Math.round(tiles.scrollLeft/step())}
-  function go(i){i=Math.max(0,Math.min(list.length-1,i));tiles.scrollTo({left:i*step(),behavior:'smooth'})}
-  tiles.addEventListener('scroll',function(){var i=cur();dots.forEach(function(d,k){d.classList.toggle('on',k===i)})},{passive:true});
-  fill();addEventListener('resize',fill);
-  // credits: turn the tile over and back
-  document.querySelectorAll('.game').forEach(function(t){
-    var b=t.querySelector('.inf'),back=t.querySelector('.back');if(!b)return;
-    function flip(e){if(e){if(e.target.closest&&e.target.closest('.back a'))return;e.preventDefault();e.stopPropagation()}
-      var v=t.querySelector('.trv');if(v){t.classList.remove('playing');v.pause()}
-      t.classList.add('turning');
-      setTimeout(function(){var on=t.classList.toggle('flipped');b.setAttribute('aria-expanded',on);back.setAttribute('aria-hidden',!on);t.classList.remove('turning')},180)}
-    // a tile half off-screen: slide it fully into view first, then turn it (stops the focus jump)
-    function go2(e){e.preventDefault();e.stopPropagation();
-      var r=t.getBoundingClientRect(),c=tiles.getBoundingClientRect();
-      if(r.left<c.left-1||r.right>c.right+1){var i=[].indexOf.call(tiles.querySelectorAll('.tile'),t);go(i);setTimeout(function(){flip()},380)}else flip()}
-    b.addEventListener('pointerdown',function(e){e.preventDefault()});back.addEventListener('pointerdown',function(e){if(!(e.target.closest&&e.target.closest('a')))e.preventDefault()});
-    b.addEventListener('click',go2);back.addEventListener('click',go2);
-  });
-  addEventListener('keydown',function(e){
-    if(e.key==='Escape')setAbout(false);
-    if(e.key==='ArrowRight')go(cur()+1);
-    if(e.key==='ArrowLeft')go(cur()-1);
-  });
-  var wt=0;
-  tiles.addEventListener('wheel',function(e){
-    if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();var n=Date.now();if(n-wt>350){wt=n;go(cur()+(e.deltaY>0?1:-1))}}
-  },{passive:false});
-  var sx=null,sl=0,moved=false;
-  tiles.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse')return;sx=e.clientX;sl=tiles.scrollLeft;moved=false});
-  addEventListener('pointermove',function(e){if(sx===null)return;var dx=e.clientX-sx;if(Math.abs(dx)>5){moved=true;tiles.classList.add('drag')}if(moved)tiles.scrollLeft=sl-dx});
-  addEventListener('pointerup',function(e){if(sx===null)return;var dx=e.clientX-sx;sx=null;if(moved){tiles.classList.remove('drag');go(Math.round(sl/step())+(dx<-40?1:dx>40?-1:0))}});
-  tiles.addEventListener('click',function(e){if(moved){e.preventDefault();moved=false}},true);
-})();
+}
 </script>
 </body>
 </html>
