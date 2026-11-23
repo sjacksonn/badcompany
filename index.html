@@ -109,6 +109,7 @@ button{font:inherit;color:inherit;cursor:pointer}
  #B .foot .hide-s{display:inline}
  #B .card{display:block;position:fixed;left:0;top:0;width:280px;aspect-ratio:345/465;border-radius:22px;overflow:hidden;border:1.5px solid #fff;box-shadow:0 24px 60px rgba(0,0,0,.7);pointer-events:none;opacity:0;transition:opacity .25s;z-index:20;background:#111}
  #B .card.on{opacity:1}
+ #B .card.on.away{opacity:0}
  #B .card img,#B .card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
  #B .card .lg{inset:auto;left:8%;width:84%;top:6%;height:auto}
  #B .card video{opacity:0;transition:opacity .4s}#B .card video.ready{opacity:1}
@@ -204,7 +205,7 @@ $('list').addEventListener('pointerleave',()=>{if(desk())setB(-1)});
 // the card trails the cursor and leans into the movement
 let mx=innerWidth*.6,my=innerHeight/2,cx=mx,cy=my,tilt=0;
 addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY});
-(function follow(){const c=$('card');if(c&&desk()){const tx=Math.min(innerWidth-310,mx+40),ty=Math.max(20,Math.min(innerHeight-400,my-180));
+(function follow(){const c=$('card');if(c&&desk()){const lr=$('list').getBoundingClientRect().right;c.classList.toggle('away',mx>lr-230);const tx=Math.min(lr-470,mx+40),ty=Math.max(20,Math.min(innerHeight-400,my-180));
   const vx=tx-cx;cx+=vx*.14;cy+=(ty-cy)*.14;tilt+=((vx*.05+4)-tilt)*.1;tilt=Math.max(-14,Math.min(18,tilt));
   c.style.transform=`translate(${cx}px,${cy}px) rotate(${tilt}deg)`}requestAnimationFrame(follow)})();
 $('bhint').textContent=desk()?'HOVER A NAME TO PEEK · CLICK TO PLAY':'TAP A NAME TO OPEN IT';
