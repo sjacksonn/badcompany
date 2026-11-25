@@ -178,10 +178,10 @@ const G=[
 ];
 const $=id=>document.getElementById(id);
 const pad=n=>String(n).padStart(2,'0');
-const CR={hdr:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)'],['Inspired by','NYC Hot Dog Sellers']],
- hh:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)'],['Original Artwork','<a href="https://morning.fyi" target="_blank" rel="noopener">MØRNING.FYI</a>']],
- gh:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)']],
- bf:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)']]};
+const CR={hdr:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)'],['Inspired by','A work trip to NYC and a fascination with street hot dog stands.']],
+ hh:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)'],['Original Artwork','<a href="https://morning.fyi" target="_blank" rel="noopener">MØRNING.FYI</a>'],['Inspired by','An experiment in AI at my company MØRNING in 2023, where we created a 3-headed-dog mascot called Ø that was our oracle.']],
+ gh:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)'],['Inspired by','A conversation I had in the car with my partner about the world being on fire.']],
+ bf:[['Dev','Sam'],['Platforms','Claude (Build) &amp; ChatGPT (Artwork)'],['Inspired by','A trip to the AMC Marlton cinema with my partner, and being shocked at the amount of butter poured on popcorn in the US.']]};
 const dl=g=>'<dl>'+CR[g.id].map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')+'</dl>';
 const IB=(i)=>`<button class="ib" type="button" data-cr="${i}" aria-label="Credits">i</button>`;
 const play=v=>{const p=v.play();if(p&&p.catch)p.catch(()=>{})};
